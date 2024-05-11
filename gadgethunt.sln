@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gadgethunt", "gadgethunt.csproj", "{96F33965-92AE-413C-8AEF-35F226B1B14F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96F33965-92AE-413C-8AEF-35F226B1B14F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96F33965-92AE-413C-8AEF-35F226B1B14F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96F33965-92AE-413C-8AEF-35F226B1B14F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96F33965-92AE-413C-8AEF-35F226B1B14F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {11C3491E-29AA-4420-B04C-EC27ABFB049C}
+	EndGlobalSection
+EndGlobal

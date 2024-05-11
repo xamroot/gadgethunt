@@ -1,0 +1,6 @@
+bin/
+Debug/
+.vs/
+.vs
+.sarif/
+.sarif
