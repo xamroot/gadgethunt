@@ -1725,23 +1725,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mtoor\\.nuget\\packages\\": {},
+    "C:\\Users\\Xam\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mtoor\\Documents\\tools\\gadgethunt\\gadgethunt.csproj",
+      "projectUniqueName": "C:\\Users\\Xam\\gadgethunt\\gadgethunt.csproj",
       "projectName": "gadgethunt",
-      "projectPath": "C:\\Users\\mtoor\\Documents\\tools\\gadgethunt\\gadgethunt.csproj",
-      "packagesPath": "C:\\Users\\mtoor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mtoor\\Documents\\tools\\gadgethunt\\obj\\",
+      "projectPath": "C:\\Users\\Xam\\gadgethunt\\gadgethunt.csproj",
+      "packagesPath": "C:\\Users\\Xam\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Xam\\gadgethunt\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\mtoor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Xam\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1750,8 +1750,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://pkgs.dev.azure.com/medeina/_packaging/medeina/nuget/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
@@ -1803,7 +1802,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
