@@ -46,7 +46,8 @@ namespace gadgethunt.lib
         }
 
         internal static bool FuzzDeserialization(
-            BlockingCollection<Type> inputTypes
+            BlockingCollection<Type> inputTypes,
+            BlockingCollection<string> outputStage
         )
         {
             foreach (var type in inputTypes.GetConsumingEnumerable())
@@ -60,14 +61,29 @@ namespace gadgethunt.lib
                 }
 
                 string serial = SerialUtils.BuildSerializedPayload(type);
-                if (serial != "ERR")
-                {
-                    Console.WriteLine(serial);
-                }
-
+                outputStage.Add(serial);
             }
+
+            outputStage.CompleteAdding();
 
             return true;
         }
+
+
+        internal static bool OutputReader(
+            BlockingCollection<string> outputStage,
+            Queue<string> outputQueue
+        )
+        {
+            foreach (string output in outputStage.GetConsumingEnumerable())
+            {
+                outputQueue.Enqueue(output);
+                Console.WriteLine(output);
+
+                outputQueue.Clear();
+            }
+            return true;
+        }
+
     }
 }

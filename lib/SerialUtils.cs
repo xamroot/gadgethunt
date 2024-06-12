@@ -22,9 +22,7 @@ namespace gadgethunt.lib
 
         public static string BuildSerializedPayload(Type type)
         {
-            Dictionary<string, object> kvp = new Dictionary<string, object>();
-
-            string serial = "ERR";
+            string outputText = "";
 
             // build ctors
             // REQUIRED BY NEWTONSOFT DESERIALIZATION
@@ -32,14 +30,9 @@ namespace gadgethunt.lib
             // is there a 
             if (HasParameterlessConstructor(type.GetConstructors()))
             {
-
-
                 string payloadFormat = "\"$type\":\"{0}\"{1}";
                 string payloadBody = "";
                 string propertyTemplate = ",\"{0}\":{1}";
-
-                // build props
-                kvp["$type"] = type.AssemblyQualifiedName;
 
                 foreach (var prop in type.GetProperties())
                 {
@@ -62,11 +55,11 @@ namespace gadgethunt.lib
                                 break;
                         }
                     }
-                    else 
+                    else
                     {
                         bool specialNonSetterBehaviorUsedFlag = false;
 
-                        switch(prop.PropertyType.ToString())
+                        switch (prop.PropertyType.ToString())
                         {
                             case "System.Boolean":
                                 payloadBody += string.Format(propertyTemplate, prop.Name, "false");
@@ -93,12 +86,8 @@ namespace gadgethunt.lib
                     }
                 }
 
-                //
-                //Console.WriteLine(JsonConvert.SerializeObject(o1, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All }));
-
                 string payload = "{" + string.Format(payloadFormat, type.FullName + ", " + type.Assembly.ToString().Split(",")[0], payloadBody) + "}";
-                Console.WriteLine($"\nWorking on the type: {type.FullName}");
-
+                outputText += $"\nWorking on the type: {type.FullName}\n";
                 object obj = null;
                 try
                 {
@@ -107,20 +96,21 @@ namespace gadgethunt.lib
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("fail!");
-                    //Console.WriteLine(e.ToString());
-                    return "ERR";
+                    return outputText + "fail!\n";
                 }
 
-                Console.WriteLine(obj.GetType().FullName);
-                Console.WriteLine(payload);
-                Console.WriteLine("");
-                serial = payload;
-
-                Console.ReadLine();
+                if (obj != null)
+                {
+                    outputText += $"deserialized object: {obj.GetType().FullName}\n";
+                    outputText += $"payload used: {payload}\n";
+                }
+                else
+                {
+                    outputText += "fail";
+                }
             }
 
-            return $"{serial}";
+            return $"{outputText}";
         }
 
     }

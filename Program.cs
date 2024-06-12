@@ -10,7 +10,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using System.Runtime.InteropServices;
-
 using gadgethunt.lib;
 
 public class LambdaHolder
@@ -74,13 +73,18 @@ public class Program
         string netVersion = "8";
         int pipelineCapacity = 10;
         List<string> dllFiles = GetAllDllFiles(netVersion);
+        string[] dummy = new string[5];
+        dummy[1] = "hello!";
 
-        ConcurrentBag<Type> results = new ConcurrentBag<Type>();
-        ConcurrentBag<Type> discoveredTypes = new ConcurrentBag<Type>();
+        Console.WriteLine(JsonConvert.SerializeObject(dummy, new JsonSerializerSettings { TypeNameHandling=TypeNameHandling.All}));
+        return;
 
         BlockingCollection<string> stage1 = new BlockingCollection<string>(boundedCapacity: pipelineCapacity);
         BlockingCollection<Type> stage2 = new BlockingCollection<Type>(boundedCapacity: pipelineCapacity);
         BlockingCollection<Type> stage3 = new BlockingCollection<Type>(boundedCapacity: pipelineCapacity);
+        BlockingCollection<string> outputStage = new BlockingCollection<string>(boundedCapacity: pipelineCapacity);
+        Queue<string> outputQueue = new Queue<string>();
+        bool finishedFlag = false;
 
         // Start the first stage 
         Task.Factory.StartNew(() =>
@@ -97,11 +101,21 @@ public class Program
         // Start the serializer stage
         Task.Factory.StartNew(() =>
         {
-            Processors.FuzzDeserialization(stage3);
+            Processors.FuzzDeserialization(stage3, outputStage);
+        });
+
+        // Start the thread safe message handling queue for proper output stuffs
+        Task.Factory.StartNew(() =>
+        {
+            Processors.OutputReader(outputStage, outputQueue);
+            finishedFlag = true;
         });
 
         // Add types from the currently loaded assemblies
-        Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+        IEnumerable<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().Where(predicate: a => !a.FullName.StartsWith("gadgethunt"));
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
         Parallel.ForEach(loadedAssemblies, asm =>
         {
             Type[] loadedTypes = asm.GetTypes();
@@ -116,6 +130,5 @@ public class Program
 
         Console.WriteLine("Press any key to exit.");
         Console.ReadKey();
-
     }
 }
